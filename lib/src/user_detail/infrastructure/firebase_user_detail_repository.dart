@@ -6,6 +6,26 @@ class FirebaseUserDetailRepository implements IUserDetailRepository {
   const FirebaseUserDetailRepository();
 
   @override
+  Stream<List<UserDetail>> contacts(String uid) {
+    final CollectionReference<Map<String, dynamic>> collection =
+        FirebaseFirestore.instance.collection('users');
+    final Stream<List<String>> data = collection
+        .doc(uid)
+        .collection('contacts')
+        .snapshots()
+        .map((snapshot) => snapshot.docs.map((e) => e.id).toList());
+    Stream<List<UserDetail>> users;
+    data.listen((event) {
+      users = collection.where('uid', whereIn: event).snapshots().map(
+            (snapshot) => snapshot.docs
+                .map((e) => UserDetail.fromJson(e.data()))
+                .toList(),
+          );
+    });
+    return users;
+  }
+
+  @override
   Future<UserDetail?> save(UserDetail user) async {
     final CollectionReference<Map<String, dynamic>> collection =
         FirebaseFirestore.instance.collection('users');

@@ -7,10 +7,17 @@ class FirebaseMessageRepository implements IMessageRepository {
   const FirebaseMessageRepository();
 
   @override
-  // TODO: implement messages
-  Stream<List<Message>> get messages {
-    // User? user = FirebaseAuth.instance.currentUser;
-    // FirebaseFirestore.instance.collection('users').doc(user?.uid ?? '').collection('messages');
+  Stream<List<Message>> getUserMessages(String uid) {
+    final CollectionReference<Map<String, dynamic>> chats =
+        FirebaseFirestore.instance.collection('chats');
+    chats
+        .where('userIds', arrayContains: uid)
+        .orderBy('lastMessage.dateTime')
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs.map((doc) {});
+    });
+    // TODO: implement getUserMessages
     throw UnimplementedError();
   }
 }
