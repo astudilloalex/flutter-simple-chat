@@ -14,4 +14,16 @@ class UserDetailService {
     if (refresh) _currentUser = await _repository.findByUid(user.uid);
     return _currentUser ??= await _repository.findByUid(user.uid);
   }
+
+  Stream<List<UserDetail>> getContacts() {
+    final String? uid = FirebaseAuth.instance.currentUser?.uid;
+    return _repository.contacts(uid ?? '');
+  }
+
+  Future<void> addContact(String uid) async {
+    if (await _repository.existUser(uid)) {
+      return _repository.addContact(uid);
+    }
+    throw Exception('user-does-not-exist');
+  }
 }
