@@ -11,4 +11,14 @@ class MessageService {
     final String? uid = FirebaseAuth.instance.currentUser?.uid;
     return _repository.getLastMessage(uid ?? '', userId);
   }
+
+  Future<void> sendMessage(Message message) {
+    return _repository.sendMessage(message);
+  }
+
+  Stream<List<Message>> getMessages(String uid,
+      {Message? lastMessage, int? size}) {
+    final String? currentUid = FirebaseAuth.instance.currentUser?.uid;
+    return _repository.getMessages(currentUid ?? '', uid);
+  }
 }

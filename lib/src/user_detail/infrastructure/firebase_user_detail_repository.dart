@@ -29,6 +29,16 @@ class FirebaseUserDetailRepository implements IUserDetailRepository {
   }
 
   @override
+  Stream<UserDetail?> findById(String uid) {
+    final CollectionReference<Map<String, dynamic>> collection =
+        FirebaseFirestore.instance.collection('users');
+    return collection.doc(uid).snapshots().map(
+          (snapshot) =>
+              snapshot.exists ? UserDetail.fromJson(snapshot.data()!) : null,
+        );
+  }
+
+  @override
   Future<UserDetail?> findByUid(String uid) async {
     final CollectionReference<Map<String, dynamic>> collection =
         FirebaseFirestore.instance.collection('users');

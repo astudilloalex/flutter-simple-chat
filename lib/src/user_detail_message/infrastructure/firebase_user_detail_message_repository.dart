@@ -51,7 +51,6 @@ class FirebaseUserDetailMessageRepository
     }).switchMap(
       (value) {
         final List<Stream<UserDetailMessage>> streams = value.toList();
-        print(Rx.combineLatestList(streams));
         return streams.isNotEmpty
             ? Rx.combineLatestList(streams)
             : Stream.value([]);

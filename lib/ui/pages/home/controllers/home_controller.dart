@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:simple_chat/app/services/get_it_service.dart';
-import 'package:simple_chat/src/message/application/message_service.dart';
 import 'package:simple_chat/src/user_detail/application/user_detail_service.dart';
 import 'package:simple_chat/src/user_detail/domain/user_detail.dart';
 import 'package:simple_chat/src/user_detail_message/application/user_detail_message_service.dart';

@@ -26,4 +26,8 @@ class UserDetailService {
     }
     throw Exception('user-does-not-exist');
   }
+
+  Stream<UserDetail?> findById(String uid) {
+    return _repository.findById(uid);
+  }
 }

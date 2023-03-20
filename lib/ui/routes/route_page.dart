@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:simple_chat/app/services/get_it_service.dart';
 import 'package:simple_chat/src/auth/application/auth_handler.dart';
+import 'package:simple_chat/ui/pages/chat/chat_page.dart';
 import 'package:simple_chat/ui/pages/home/home_page.dart';
 import 'package:simple_chat/ui/pages/sign_in/sign_in_page.dart';
 import 'package:simple_chat/ui/pages/splash/splash_page.dart';
@@ -18,6 +19,13 @@ class RoutePage {
       return null;
     },
     routes: [
+      GoRoute(
+        name: RouteName.chat,
+        path: '${RouteName.chat}/:userId',
+        builder: (context, state) => ChatPage(
+          uid: state.params['userId'] ?? '',
+        ),
+      ),
       GoRoute(
         name: RouteName.home,
         path: RouteName.home,

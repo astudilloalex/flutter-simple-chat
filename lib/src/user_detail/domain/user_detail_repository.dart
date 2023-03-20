@@ -6,6 +6,7 @@ abstract class IUserDetailRepository {
   Future<void> addContact(String uid);
   Stream<List<UserDetail>> contacts(String uid);
   Future<bool> existUser(String uid);
+  Stream<UserDetail?> findById(String uid);
   Future<UserDetail?> findByUid(String uid);
   Future<UserDetail?> save(UserDetail user);
 }

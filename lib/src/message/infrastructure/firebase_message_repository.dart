@@ -24,6 +24,47 @@ class FirebaseMessageRepository implements IMessageRepository {
   }
 
   @override
+  Stream<List<Message>> getMessages(
+    String uid,
+    String otherUID, {
+    Message? lastMessage,
+    int? size,
+  }) {
+    final CollectionReference<Map<String, dynamic>> chats = FirebaseFirestore
+        .instance
+        .collection('chats')
+        .doc(_getConversationId(uid, otherUID))
+        .collection('messages');
+    if (size != null) {
+      if (lastMessage != null) {
+        return chats
+            .orderBy('dateTime', descending: true)
+            .startAfter([lastMessage.dateTime])
+            .limit(size)
+            .snapshots()
+            .map(
+              (snapshot) => snapshot.docs
+                  .map((doc) => Message.fromJson(doc.data()))
+                  .toList(),
+            );
+      }
+      return chats
+          .orderBy('dateTime', descending: true)
+          .limit(size)
+          .snapshots()
+          .map(
+            (snapshot) => snapshot.docs
+                .map((doc) => Message.fromJson(doc.data()))
+                .toList(),
+          );
+    }
+    return chats.orderBy('dateTime', descending: true).snapshots().map(
+          (snapshot) =>
+              snapshot.docs.map((doc) => Message.fromJson(doc.data())).toList(),
+        );
+  }
+
+  @override
   Stream<List<Message>> getUserMessages(String uid) {
     final CollectionReference<Map<String, dynamic>> chats =
         FirebaseFirestore.instance.collection('chats');
@@ -38,9 +79,27 @@ class FirebaseMessageRepository implements IMessageRepository {
     throw UnimplementedError();
   }
 
+  @override
+  Future<void> sendMessage(Message message) {
+    final DocumentReference<Map<String, dynamic>> chats = FirebaseFirestore
+        .instance
+        .collection('chats')
+        .doc(_getConversationId(message.sentBy, message.sentTo));
+    final WriteBatch batch = FirebaseFirestore.instance.batch();
+    batch.set(chats.collection('messages').doc(), message.toJson());
+    batch.update(
+      chats,
+      {
+        'lastMessage': message.toJson(),
+        'userIds': [message.sentBy, message.sentTo]
+      },
+    );
+    return batch.commit();
+  }
+
   String _getConversationId(String currentUID, String otherUID) {
     return currentUID.hashCode <= otherUID.hashCode
-        ? '${currentUID}_$otherUID'
-        : '${otherUID}_$currentUID';
+        ? '$currentUID-$otherUID'
+        : '$otherUID-$currentUID';
   }
 }

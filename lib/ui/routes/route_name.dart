@@ -4,6 +4,7 @@ class RouteName {
   // prevents instantiation and extension.
   const RouteName._();
 
+  static const String chat = '/chat';
   static const String home = '/home';
   static const String signIn = '/sign-in';
   static const String splash = '/splash';
