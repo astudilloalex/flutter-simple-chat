@@ -33,11 +33,16 @@ class AddContactDialog extends StatelessWidget {
                   onPressed: controller.addingContact
                       ? null
                       : () async {
+                          final String uid =
+                              controller.userIdController.text.trim();
                           final String? error = await controller.addContact();
                           if (error != null && context.mounted) {
                             showErrorSnackbar(context, error);
                           }
-                          if (context.mounted) GoRouter.of(context).pop();
+                          if (context.mounted) {
+                            GoRouter.of(context)
+                                .pop(error != null ? null : uid);
+                          }
                         },
                   label: Text(AppLocalizations.of(context)!.add),
                   icon: const Icon(Icons.add),

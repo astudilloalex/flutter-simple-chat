@@ -7,13 +7,29 @@ import 'package:simple_chat/ui/pages/chat/widgets/chat_list.dart';
 import 'package:simple_chat/ui/pages/chat/widgets/message_input.dart';
 import 'package:simple_chat/ui/widgets/google_ads/google_banner_ad.dart';
 
-class ChatPage extends StatelessWidget {
+class ChatPage extends StatefulWidget {
   const ChatPage({super.key, required this.uid});
   final String uid;
 
   @override
+  State<ChatPage> createState() => _ChatPageState();
+}
+
+class _ChatPageState extends State<ChatPage> {
+  @override
+  void initState() {
+    Get.put<ChatController>(ChatController(widget.uid));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    Get.delete<ChatController>();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    Get.put<ChatController>(ChatController(uid));
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 0.0,
@@ -23,7 +39,7 @@ class ChatPage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: const [
-            GoogleBannerAd(adSize: AdSize.fullBanner),
+            GoogleBannerAd(),
             Expanded(child: ChatList()),
             MessageInput(),
           ],

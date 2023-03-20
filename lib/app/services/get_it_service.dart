@@ -33,7 +33,10 @@ void setUpGetIt() {
     () => UserDetailService(getIt<IUserDetailRepository>()),
   );
   getIt.registerLazySingleton(
-    () => MessageService(getIt<IMessageRepository>()),
+    () => MessageService(
+      getIt<IMessageRepository>(),
+      getIt<IUserDetailRepository>(),
+    ),
   );
   getIt.registerLazySingleton(
     () => UserDetailMessageService(getIt<IUserDetailMessageRepository>()),

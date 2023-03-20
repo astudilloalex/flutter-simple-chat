@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:simple_chat/src/user_detail/domain/user_detail.dart';
 import 'package:simple_chat/src/user_detail_message/domain/user_detail_message.dart';
 import 'package:simple_chat/ui/pages/home/controllers/home_controller.dart';
 import 'package:simple_chat/ui/pages/home/widgets/add_contact_dialog.dart';
+import 'package:simple_chat/ui/routes/route_name.dart';
 import 'package:simple_chat/ui/widgets/chats/chat_user_tile.dart';
 
 class HomePage extends StatelessWidget {
@@ -16,9 +18,10 @@ class HomePage extends StatelessWidget {
     final HomeController controller = Get.put(HomeController());
     return Scaffold(
       appBar: AppBar(
-        title: Obx(() {
-          return Text(controller.currentUser?.username ?? '');
-        }),
+        title: const Text('Simple Chat'),
+        // title: Obx(() {
+        //   return Text(controller.currentUser?.username ?? '');
+        // }),
         actions: [
           IconButton(
             onPressed: null,
@@ -50,18 +53,25 @@ class HomePage extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _showAddContactDialog(context),
+        onPressed: () => _showAddContactDialog(context, controller),
         child: const Icon(Icons.add),
       ),
     );
   }
 
-  void _showAddContactDialog(BuildContext context) {
+  void _showAddContactDialog(BuildContext context, HomeController controller) {
     showDialog(
       context: context,
       builder: (context) {
         return const AddContactDialog();
       },
-    );
+    ).then((value) {
+      if (value != null && value is String && value.length > 1) {
+        context.pushNamed(
+          RouteName.chat,
+          params: {'userId': value},
+        );
+      }
+    });
   }
 }

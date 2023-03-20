@@ -1,9 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:simple_chat/src/message/domain/message.dart';
 import 'package:simple_chat/src/message/domain/message_repository.dart';
+import 'package:simple_chat/src/message/domain/message_type.dart';
 
 class FirebaseMessageRepository implements IMessageRepository {
   const FirebaseMessageRepository();
+
+  @override
+  Future<void> createChat(String uid, String otherUID) {
+    return FirebaseFirestore.instance
+        .collection('chats')
+        .doc(_getConversationId(uid, otherUID))
+        .set({
+      'userIds': [uid, otherUID],
+      'lastMessage': Message(
+        body: '',
+        dateTime: DateTime.now(),
+        messageType: MessageType.text,
+        sentBy: uid,
+        sentTo: otherUID,
+      ).toJson()
+    });
+  }
 
   @override
   Stream<Message?> getLastMessage(String currentUID, String otherUID) {
@@ -91,7 +109,6 @@ class FirebaseMessageRepository implements IMessageRepository {
       chats,
       {
         'lastMessage': message.toJson(),
-        'userIds': [message.sentBy, message.sentTo]
       },
     );
     return batch.commit();

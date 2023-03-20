@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:simple_chat/app/services/get_it_service.dart';
+import 'package:simple_chat/src/message/application/message_service.dart';
 import 'package:simple_chat/src/user_detail/application/user_detail_service.dart';
 import 'package:simple_chat/src/user_detail/domain/user_detail.dart';
 import 'package:simple_chat/src/user_detail_message/application/user_detail_message_service.dart';
@@ -10,6 +11,7 @@ class HomeController extends GetxController {
   final UserDetailService _userDetailService = getIt<UserDetailService>();
   final UserDetailMessageService _userDetailMessageService =
       getIt<UserDetailMessageService>();
+  final MessageService _messageService = getIt<MessageService>();
 
   final TextEditingController userIdController = TextEditingController();
 
@@ -34,9 +36,10 @@ class HomeController extends GetxController {
 
   Future<String?> addContact() async {
     final String uid = userIdController.text.trim();
+    if (uid.isEmpty) return 'user-does-not-exist';
     try {
       _addingContact(true);
-      await _userDetailService.addContact(uid);
+      await _messageService.createChat(uid);
     } on Exception catch (ex) {
       return ex.toString();
     } finally {
