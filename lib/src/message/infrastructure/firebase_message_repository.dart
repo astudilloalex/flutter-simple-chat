@@ -7,11 +7,14 @@ class FirebaseMessageRepository implements IMessageRepository {
   const FirebaseMessageRepository();
 
   @override
-  Future<void> createChat(String uid, String otherUID) {
-    return FirebaseFirestore.instance
+  Future<void> createChat(String uid, String otherUID) async {
+    final DocumentReference<Map<String, dynamic>> userChat = FirebaseFirestore
+        .instance
         .collection('chats')
-        .doc(_getConversationId(uid, otherUID))
-        .set({
+        .doc(_getConversationId(uid, otherUID));
+    final DocumentSnapshot<Map<String, dynamic>> data = await userChat.get();
+    if (data.exists) return;
+    return userChat.set({
       'userIds': [uid, otherUID],
       'lastMessage': Message(
         body: '',

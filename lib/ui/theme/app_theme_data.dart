@@ -25,6 +25,7 @@ class AppThemeData {
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: color.primary,
+          foregroundColor: color.secondary,
         ),
       ),
       textButtonTheme: TextButtonThemeData(

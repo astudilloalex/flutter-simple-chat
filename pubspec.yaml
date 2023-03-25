@@ -36,6 +36,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  flutter_native_splash: ^2.2.19
   get: ^4.6.5
   get_it: ^7.2.0
   go_router: ^6.2.0
@@ -50,6 +51,7 @@ dependencies:
   # cupertino_icons: ^1.0.2
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.12.0
   flutter_test:
     sdk: flutter
 
@@ -70,6 +72,9 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  assets:
+    - assets/images/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
@@ -101,3 +106,21 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/simple_chat_icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  # web:
+  #   generate: true
+  #   image_path: "path/to/image.png"
+  #   background_color: "#hexcode"
+  #   theme_color: "#hexcode"
+  # windows:
+  #   generate: true
+  #   image_path: "path/to/image.png"
+  #   icon_size: 48 # min:48, max:256, default: 48
+  # macos:
+  #   generate: true
+  #   image_path: "path/to/image.png"
