@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:simple_chat/app/services/get_it_service.dart';
+import 'package:simple_chat/src/auth/application/authenticator.dart';
 import 'package:simple_chat/src/message/application/message_service.dart';
 import 'package:simple_chat/src/user_detail/application/user_detail_service.dart';
 import 'package:simple_chat/src/user_detail/domain/user_detail.dart';
@@ -11,6 +12,7 @@ class HomeController extends GetxController {
   final UserDetailService _userDetailService = getIt<UserDetailService>();
   final UserDetailMessageService _userDetailMessageService =
       getIt<UserDetailMessageService>();
+  final Authenticator _authenticator = getIt<Authenticator>();
   final MessageService _messageService = getIt<MessageService>();
 
   final TextEditingController userIdController = TextEditingController();
@@ -48,6 +50,8 @@ class HomeController extends GetxController {
     }
     return null;
   }
+
+  Future<void> logout() => _authenticator.logout();
 
   UserDetail? get currentUser => _currentUser.value;
 

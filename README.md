@@ -1,16 +1,14 @@
 # simple_chat
 
-A new Flutter project.
+A simple chat app made with Flutter and Firestore
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project is now published in the Playstore
 
-A few resources to get you started if this is your first Flutter project:
+![alt Screenshot](https://i.postimg.cc/PCXYFvr4/Screenshot-1679715410.png)
+![alt Screenshot](https://i.postimg.cc/w1wLKx1d/Screenshot-1679715441.png)
+![alt Screenshot](https://i.postimg.cc/Ff1chtSk/Screenshot-1679715458.png)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### This app is available in [Google Play](https://play.google.com/store/apps/details?id=com.alexastudillo.simple_chat)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

@@ -1,3 +1,4 @@
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
@@ -17,35 +18,51 @@ class SignInPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const GoogleBannerAd(adSize: AdSize.fullBanner),
-            Center(
-              child: Obx(
-                () {
-                  return OutlinedButton.icon(
-                    onPressed: controller.loading
-                        ? null
-                        : () async {
-                            final String? error =
-                                await controller.signInWithGoogle();
-                            if (error != null && context.mounted) {
-                              showErrorSnackbar(context, error);
-                            } else if (context.mounted) {
-                              context.goNamed(RouteName.home);
-                            }
-                          },
-                    icon: controller.loading
-                        ? const SizedBox(
-                            width: 18.0,
-                            height: 18.0,
-                            child: CircularProgressIndicator.adaptive(),
-                          )
-                        : const Icon(Icons.g_mobiledata),
-                    label:
-                        Text(AppLocalizations.of(context)!.continueWithGoogle),
-                  );
-                },
+            Expanded(
+              child: ListView(
+                shrinkWrap: true,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(50.0),
+                    child: Center(
+                      child: Image.asset(
+                        'assets/images/simple_chat_icon.png',
+                        width: 200.0,
+                      ),
+                    ),
+                  ),
+                  Center(
+                    child: Obx(
+                      () {
+                        return OutlinedButton.icon(
+                          onPressed: controller.loading
+                              ? null
+                              : () async {
+                                  final String? error =
+                                      await controller.signInWithGoogle();
+                                  if (error != null && context.mounted) {
+                                    showErrorSnackbar(context, error);
+                                  } else if (context.mounted) {
+                                    context.goNamed(RouteName.home);
+                                  }
+                                },
+                          icon: controller.loading
+                              ? const SizedBox(
+                                  width: 18.0,
+                                  height: 18.0,
+                                  child: CircularProgressIndicator.adaptive(),
+                                )
+                              : const Icon(Icons.g_mobiledata),
+                          label: Text(
+                            AppLocalizations.of(context)!.continueWithGoogle,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
             const GoogleBannerAd(adSize: AdSize.fullBanner),

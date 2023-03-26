@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:simple_chat/ui/pages/splash/controllers/splash_controller.dart';

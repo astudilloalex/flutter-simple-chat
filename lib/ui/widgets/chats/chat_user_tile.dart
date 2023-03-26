@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:simple_chat/src/user_detail_message/domain/user_detail_message.dart';
-import 'package:simple_chat/ui/pages/chat/controllers/chat_controller.dart';
 import 'package:simple_chat/ui/routes/route_name.dart';
 
 class ChatUserTile extends StatelessWidget {
@@ -47,12 +45,12 @@ class ChatUserTile extends StatelessWidget {
     );
   }
 
-  void _routeListener(BuildContext context) {
-    if (!GoRouter.of(context).location.contains(RouteName.chat)) {
-      Get.delete<ChatController>();
-      GoRouter.of(context).removeListener(
-        () => _routeListener(context),
-      ); // remove listener
-    }
-  }
+  // void _routeListener(BuildContext context) {
+  //   if (!GoRouter.of(context).location.contains(RouteName.chat)) {
+  //     Get.delete<ChatController>();
+  //     GoRouter.of(context).removeListener(
+  //       () => _routeListener(context),
+  //     ); // remove listener
+  //   }
+  // }
 }

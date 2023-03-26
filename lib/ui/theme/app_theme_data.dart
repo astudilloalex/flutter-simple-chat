@@ -21,7 +21,9 @@ class AppThemeData {
         foregroundColor: Colors.black,
       ),
       appBarTheme: AppBarTheme(
-          backgroundColor: color.primary, foregroundColor: color.secondary),
+        backgroundColor: color.primary,
+        foregroundColor: color.secondary,
+      ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: color.primary,

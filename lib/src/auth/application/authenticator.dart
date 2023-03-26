@@ -25,4 +25,8 @@ class Authenticator {
     }
     return user;
   }
+
+  Future<void> logout() {
+    return _repository.logout();
+  }
 }
