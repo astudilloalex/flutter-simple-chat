@@ -11,4 +11,3 @@ This project is now published in the Playstore
 ![alt Screenshot](https://i.postimg.cc/Ff1chtSk/Screenshot-1679715458.png)
 
 ### This app is available in [Google Play](https://play.google.com/store/apps/details?id=com.alexastudillo.simple_chat)
-

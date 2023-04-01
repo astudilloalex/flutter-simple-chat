@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:simple_chat/src/user_detail_message/domain/user_detail_message.dart';
 import 'package:simple_chat/ui/pages/home/controllers/home_controller.dart';
 import 'package:simple_chat/ui/pages/home/widgets/add_contact_dialog.dart';
+import 'package:simple_chat/ui/pages/home/widgets/barcode_view.dart';
 import 'package:simple_chat/ui/routes/route_name.dart';
 import 'package:simple_chat/ui/widgets/chats/chat_user_tile.dart';
 import 'package:simple_chat/ui/widgets/google_ads/google_banner_ad.dart';
@@ -24,6 +26,19 @@ class HomePage extends StatelessWidget {
           PopupMenuButton<int>(
             onSelected: (value) {
               if (value == 0) {
+                showModalBottomSheet(
+                  context: context,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(25.0),
+                    ),
+                  ),
+                  builder: (context) {
+                    return const BarcodeView();
+                  },
+                );
+              }
+              if (value == 1) {
                 controller.logout();
                 context.goNamed(RouteName.signIn);
               }
@@ -32,7 +47,11 @@ class HomePage extends StatelessWidget {
               return [
                 const PopupMenuItem(
                   value: 0,
-                  child: Text('Logout'),
+                  child: Text('My ID'),
+                ),
+                PopupMenuItem(
+                  value: 1,
+                  child: Text(AppLocalizations.of(context)?.logout ?? ''),
                 ),
               ];
             },

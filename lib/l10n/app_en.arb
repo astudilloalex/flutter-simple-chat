@@ -1,5 +1,6 @@
 {
     "continueWithGoogle": "Continue with Google",
     "addContactId": "Add contact ID",
-    "add": "Add"
+    "add": "Add",
+    "logout": "Logout"
 }

@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:simple_chat/ui/pages/home/controllers/home_controller.dart';
+import 'package:simple_chat/ui/pages/qr_scanner/qr_scanner_page.dart';
 import 'package:simple_chat/ui/widgets/snackbars/snackbars.dart';
 
 class AddContactDialog extends StatelessWidget {
@@ -25,7 +26,39 @@ class AddContactDialog extends StatelessWidget {
             ),
             TextFormField(
               controller: controller.userIdController,
-              decoration: const InputDecoration(labelText: 'ID'),
+              decoration: InputDecoration(
+                labelText: 'ID',
+                suffixIcon: Obx(
+                  () {
+                    return IconButton(
+                      onPressed: controller.addingContact
+                          ? null
+                          : () async {
+                              controller.userIdController.text =
+                                  await showDialog<String?>(
+                                        context: context,
+                                        builder: (context) {
+                                          return const QRScannerPage();
+                                        },
+                                      ) ??
+                                      '';
+                              final String uid =
+                                  controller.userIdController.text.trim();
+                              final String? error =
+                                  await controller.addContact();
+                              if (error != null && context.mounted) {
+                                showErrorSnackbar(context, error);
+                              }
+                              if (context.mounted) {
+                                GoRouter.of(context)
+                                    .pop(error != null ? null : uid);
+                              }
+                            },
+                      icon: const Icon(Icons.qr_code_scanner),
+                    );
+                  },
+                ),
+              ),
             ),
             Obx(
               () {

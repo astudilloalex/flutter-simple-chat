@@ -3,6 +3,7 @@ import 'package:simple_chat/app/services/get_it_service.dart';
 import 'package:simple_chat/src/auth/application/auth_handler.dart';
 import 'package:simple_chat/ui/pages/chat/chat_page.dart';
 import 'package:simple_chat/ui/pages/home/home_page.dart';
+import 'package:simple_chat/ui/pages/qr_scanner/qr_scanner_page.dart';
 import 'package:simple_chat/ui/pages/sign_in/sign_in_page.dart';
 import 'package:simple_chat/ui/pages/splash/splash_page.dart';
 import 'package:simple_chat/ui/routes/route_name.dart';
@@ -30,6 +31,11 @@ class RoutePage {
         name: RouteName.home,
         path: RouteName.home,
         builder: (context, state) => const HomePage(),
+      ),
+      GoRoute(
+        name: RouteName.scanner,
+        path: RouteName.scanner,
+        builder: (context, state) => const QRScannerPage(),
       ),
       GoRoute(
         name: RouteName.signIn,

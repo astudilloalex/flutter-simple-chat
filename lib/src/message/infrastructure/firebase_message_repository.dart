@@ -12,18 +12,13 @@ class FirebaseMessageRepository implements IMessageRepository {
         .instance
         .collection('chats')
         .doc(_getConversationId(uid, otherUID));
-    final DocumentSnapshot<Map<String, dynamic>> data = await userChat.get();
-    if (data.exists) return;
-    return userChat.set({
-      'userIds': [uid, otherUID],
-      'lastMessage': Message(
-        body: '',
-        dateTime: DateTime.now(),
-        messageType: MessageType.text,
-        sentBy: uid,
-        sentTo: otherUID,
-      ).toJson()
-    });
+    return userChat.set(
+      {
+        'userIds': [uid, otherUID],
+        'lastMessage': {'creating': uid},
+      },
+      SetOptions(merge: true),
+    );
   }
 
   @override

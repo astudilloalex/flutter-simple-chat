@@ -6,6 +6,7 @@ class RouteName {
 
   static const String chat = '/chat';
   static const String home = '/home';
+  static const String scanner = '/scanner';
   static const String signIn = '/sign-in';
   static const String splash = '/splash';
 }
